@@ -7,4 +7,4 @@ add_executable(CProjects
         projekt2/projekt2.c
         projekt3/projekt3.c
         projekt3/projekt3.c
-        projekt4/projekt4.c)
+        projekt4/projekt4-LIFO-tablica.c)
