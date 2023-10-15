@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 typedef struct {
     char name[50];
@@ -154,9 +155,9 @@ int main() {
                 deleteAllElements();
                 break;
             case 7:
-                return 0;
+                exit(0);
             default:
                 break;
         }
-    } while (1 == 1);
+    } while (1);
 }
