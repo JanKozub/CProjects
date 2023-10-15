@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <malloc.h>
-#include <conio.h>
 #include <string.h>
 
 typedef struct {
@@ -46,24 +45,21 @@ int delete(Queue *q) {
     if (!q->head) {
         return 0;
     } else {
-        if (q->head->next) {
-            Node *newNode = q->head->next;
-            free(q->head);
-            q->head = newNode;
-            return 1;
+        Node *temp = q->head;
+
+        if(temp->next) {
+            while (temp->next->next) {
+                temp = temp->next;
+            }
+
+            free(temp->next);
+            temp->next = NULL;
         } else {
             free(q->head);
             q->head = NULL;
-            return 1;
         }
+        return 1;
     }
-}
-
-void clear(Queue *q) {
-    int status;
-    do {
-        status = delete(q);
-    } while (status == 1);
 }
 
 void display(Queue *q) {
@@ -76,16 +72,11 @@ void display(Queue *q) {
     }
 }
 
-void getNumberOfEntries(Queue *q) {
-    int counter = 0;
-    if (q->head) {
-        Node *temp = q->head;
-        while (temp) {
-            counter++;
-            temp = temp->next;
-        }
-    }
-    printf("Liczba elementow w strukturze: %i\n", counter);
+void clear(Queue *q) {
+    int status;
+    do {
+        status = delete(q);
+    } while (status == 1);
 }
 
 void addEntry(Queue *q) {
@@ -96,6 +87,18 @@ void addEntry(Queue *q) {
     if (ret != 3) printf("Blad wczytywania\n");
 
     insert(q, entry);
+}
+
+void getNumberOfEntries(Queue *q) {
+    int counter = 0;
+    if (q->head) {
+        Node *temp = q->head;
+        while (temp) {
+            counter++;
+            temp = temp->next;
+        }
+    }
+    printf("Liczba elementow w strukturze: %i\n", counter);
 }
 
 void findEntry(Queue *q) {
