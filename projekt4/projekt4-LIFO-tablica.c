@@ -1,19 +1,22 @@
 #include <stdio.h>
 #include <string.h>
 
-//https://www.youtube.com/watch?v=YhNrGmgZ9tw
-//https://pl.wikipedia.org/wiki/Metoda_LU
-
 typedef struct {
     char name[50];
     char surname[50];
     int year;
 } Entry;
 
+Entry entry;
+
 #define MAX 100
 
 Entry tab[MAX];
 int currentIdx = -1;
+
+void printElement(int i) {
+    printf("idx: %i, imie: %s, nazwisko: %s, rok urodzenia: %i\n", i, tab[i].name, tab[i].surname, tab[i].year);
+}
 
 void addElement() {
     if (currentIdx > MAX) {
@@ -32,27 +35,15 @@ void addElement() {
         tab[currentIdx].year = year;
 
         printf("Dodano wpis:\n");
-        printf("idx: %i, imie: %s, nazwisko: %s, rok urodzenia: %i\n", currentIdx, tab[currentIdx].name,
-               tab[currentIdx].surname, tab[currentIdx].year);
+        printElement(currentIdx);
     }
 }
 
-void getElement() {
-    printf("Podaj index\n");
-
-    int idx;
-    int ret = scanf("%i", &idx);
-    if (ret != 1) {
-        printf("Blad wczytywania\n");
+void removeElement() {
+    if (currentIdx >= 0) {
+        tab[currentIdx] = entry;
+        currentIdx--;
     }
-
-    if (idx >= 0 && idx <= currentIdx) {
-        printf("idx: %i, imie: %s, nazwisko: %s, rok urodzenia: %i\n", idx, tab[idx].name, tab[idx].surname,
-               tab[idx].year);
-    } else {
-        printf("Bledny index\n");
-    }
-
 }
 
 void FindElementByField() {
@@ -61,44 +52,82 @@ void FindElementByField() {
     printf("2. Nazwisko\n");
     printf("3. Rok urodzenia\n");
 
-    int res;
-    int ret = scanf("%i", &res);
+    int typeOfSearch;
+    int ret = scanf("%i", &typeOfSearch);
     if (ret != 1) printf("Blad wczytywania\n");
 
-    switch (res) {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        default:
-            printf("Wybrano zla wartosc\n");
-    }
+    if (typeOfSearch == 1) {
+        printf("Podaj imie\n");
+        char value[50];
+        int ret2 = scanf("%s", value);
+        if (ret2 != 1) printf("Blad wczytywania\n");
 
+        for (int i = 0; i <= currentIdx; ++i) {
+            if (strcmp(tab[i].name, value) == 0) {
+                printElement(i);
+                return;
+            }
+        }
+
+        printf("Nie znaleziono\n");
+        return;
+    }
+    if (typeOfSearch == 2) {
+        printf("Podaj nazwisko\n");
+        char value[50];
+        int ret2 = scanf("%s", value);
+        if (ret2 != 1) printf("Blad wczytywania\n");
+
+        for (int i = 0; i <= currentIdx; ++i) {
+            if (strcmp(tab[i].surname, value) == 0) {
+                printElement(i);
+                return;
+            }
+        }
+        return;
+    }
+    if (typeOfSearch == 3) {
+        printf("Podaj rok urodzenia\n");
+        int value;
+        int ret2 = scanf("%i", &value);
+        if (ret2 != 1) printf("Blad wczytywania\n");
+
+        for (int i = 0; i <= currentIdx; ++i) {
+            if (tab[i].year == value) {
+                printElement(i);
+                return;
+            }
+        }
+        return;
+    }
+    printf("Wybrano zla wartosc\n");
 }
 
 void getAllElements() {
-
+    for (int i = 0; i <= currentIdx; ++i) {
+        printElement(i);
+    }
 }
 
 void getNumberOfElements() {
-
+    printf("ilosc elementow: %i", currentIdx);
 }
 
 void deleteAllElements() {
-
+    while (currentIdx >= 0) {
+        tab[currentIdx] = entry;
+        currentIdx--;
+    }
 }
-
 
 int main() {
     do {
         printf("1. Dodaj element\n");
-        printf("2. Pobierz element\n");
+        printf("2. Usun element\n");
         printf("3. Wyszukaj element po polu\n");
-//        printf("4. Pobierz wszystkie dokumenty\n");
-//        printf("5. Sprawdz liczbe elementow w strukturze\n");
-//        printf("6. Usuniecie wszystkich elementow ze struktury\n");
+        printf("4. Wypisz wszystkie elementy\n");
+        printf("5. Sprawdz liczbe elementow w strukturze\n");
+        printf("6. Usuniecie wszystkich elementow ze struktury\n");
         printf("7. Zakonczenie programu\n");
 
         int res = 0;
@@ -110,7 +139,7 @@ int main() {
                 addElement();
                 break;
             case 2:
-                getElement();
+                removeElement();
                 break;
             case 3:
                 FindElementByField();
