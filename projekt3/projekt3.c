@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <math.h>
 
 double input[3][3] = {
         {5, 3, 2},
@@ -18,15 +17,6 @@ double U[3][3] = {
         {0, 0, 0},
         {0, 0, 0}
 };
-
-void printData(double data[3][3]) {
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            printf("%lf ", data[i][j]);
-        }
-        printf("\n");
-    }
-}
 
 void printData2() {
     for (int i = 0; i < 3; ++i) {
@@ -85,14 +75,9 @@ int main() {
         for (int j = 0; j < 3; ++j) {
             if (j != 1) {
                 n = n + (L[1][j] * U[j][i]);
-//                printf("%f * %f + ", L[1][j], U[j][i]);
             }
         }
         n = (input[1][i] - n) / L[1][1];
-//        printf("%f", input[1][i]);
-//        printf(" / %f", L[1][1]);
-
-//        printf("== %f\n", n);
         U[1][i] = n;
     }
 
@@ -108,6 +93,19 @@ int main() {
         n = (input[i][1] - n) / U[1][1];
 
         L[i][1] = n;
+    }
+
+    printData2();
+
+    for (int i = 2; i < 3; ++i) {
+        n = 0;
+        for (int j = 0; j < 3; ++j) {
+            if (j != 2) {
+                n = n + (L[2][j] * U[j][i]);
+            }
+        }
+        n = (input[2][i] - n) / L[2][2];
+        U[2][i] = n;
     }
 
     printData2();
