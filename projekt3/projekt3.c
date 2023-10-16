@@ -1,114 +1,108 @@
 #include <stdio.h>
 
-double input[3][3] = {
-        {5, 3, 2},
-        {1, 2, 0},
-        {3, 0, 4}
+#define SIZE 4
+
+//double input[3][3] = {
+//        {5, 3, 2},
+//        {1, 2, 0},
+//        {3, 0, 4}
+//};
+
+double input[4][4] = {
+        {5, 3, 2, 2},
+        {1, 2, 0, 4},
+        {3, 0, 4, 8},
+        {1, 9, 3, 2}
 };
 
-double L[3][3] = {
-        {1, 0, 0},
-        {0, 1, 0},
-        {0, 0, 1}
-};
+//double input[SIZE][SIZE] = {
+//        {8, 9, 3},
+//        {6, 5, 1},
+//        {7, 4, 2}
+//};
 
-double U[3][3] = {
-        {0, 0, 0},
-        {0, 0, 0},
-        {0, 0, 0}
-};
+double L[SIZE][SIZE];
+
+double U[SIZE][SIZE];
+
 
 void printData2() {
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            printf("%lf ", input[i][j]);
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            printf("%.2f ", input[i][j]);
         }
 
         printf("          ");
 
-        for (int j = 0; j < 3; ++j) {
-            printf("%lf ", L[i][j]);
+        for (int j = 0; j < SIZE; ++j) {
+            printf("%.2f ", L[i][j]);
         }
 
         printf("          ");
 
-        for (int j = 0; j < 3; ++j) {
-            printf("%lf ", U[i][j]);
+        for (int j = 0; j < SIZE; ++j) {
+            printf("%.2f ", U[i][j]);
         }
         printf("\n");
     }
     printf("------------------------------------------------------------------------------------------\n");
 }
 
+void initL(){
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            if(i == j) {
+                L[i][j] = 1;
+            } else if(j < i) {
+                L[i][j] = -1;
+            } else {
+                L[i][j] = 0;
+            }
+        }
+    }
+}
+
+void initU() {
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            U[i][j] = j < i ? 0 : -1;
+        }
+    }
+}
+
 int main() {
+    initL();
+    initU();
     printData2();
 
     double n;
-    for (int i = 0; i < 3; ++i) {
-        n = 0;
-        for (int j = 1; j < 3; ++j) {
-            n = n + (L[0][j] * U[j][i]);
-        }
-        n = (input[0][i] - n) / L[0][0];
-
-        U[0][i] = n;
-    }
-
-    printData2();
-
-    for (int i = 1; i < 3; ++i) {
-        n = 0;
-        for (int j = 0; j < 3; ++j) {
-            if (j != 0) {
-                n = n + (U[j][0] * L[i][j]);
+    for (int k = 0; k < SIZE; ++k) {
+        for (int i = k; i < SIZE; ++i) {
+            n = 0;
+            for (int j = 0; j < SIZE; ++j) {
+                if (j != k) {
+                    n = n + (L[k][j] * U[j][i]);
+                }
             }
+            n = (input[k][i] - n) / L[k][k];
+
+            U[k][i] = n;
         }
-        n = (input[i][0] - n) / U[0][0];
+        printData2();
 
-        L[i][0] = n;
-    }
-
-    printData2();
-
-    for (int i = 1; i < 3; ++i) {
-        n = 0;
-        for (int j = 0; j < 3; ++j) {
-            if (j != 1) {
-                n = n + (L[1][j] * U[j][i]);
+        for (int i = k + 1; i < SIZE; ++i) {
+            n = 0;
+            for (int j = 0; j < SIZE; ++j) {
+                if (j != k) {
+                    n = n + (U[j][k] * L[i][j]);
+                }
             }
+            n = (input[i][k] - n) / U[k][k];
+
+            L[i][k] = n;
         }
-        n = (input[1][i] - n) / L[1][1];
-        U[1][i] = n;
+        printData2();
     }
-
-    printData2();
-
-    for (int i = 2; i < 3; ++i) {
-        n = 0;
-        for (int j = 0; j < 3; ++j) {
-            if (j != 1) {
-                n = n + (U[j][1] * L[i][j]);
-            }
-        }
-        n = (input[i][1] - n) / U[1][1];
-
-        L[i][1] = n;
-    }
-
-    printData2();
-
-    for (int i = 2; i < 3; ++i) {
-        n = 0;
-        for (int j = 0; j < 3; ++j) {
-            if (j != 2) {
-                n = n + (L[2][j] * U[j][i]);
-            }
-        }
-        n = (input[2][i] - n) / L[2][2];
-        U[2][i] = n;
-    }
-
-    printData2();
 
     return 0;
 }
