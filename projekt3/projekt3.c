@@ -28,17 +28,31 @@ double U[SIZE][SIZE];
 
 void printData2() {
     for (int i = 0; i < SIZE; ++i) {
+        if(i == 0) {
+            printf("LU: ");
+        } else {
+            printf("    ");
+        }
+
         for (int j = 0; j < SIZE; ++j) {
             printf("%.2f ", input[i][j]);
         }
 
-        printf("          ");
+        if(i == 0) {
+            printf(" L: ");
+        } else {
+            printf("    ");
+        }
 
         for (int j = 0; j < SIZE; ++j) {
             printf("%.2f ", L[i][j]);
         }
 
-        printf("          ");
+        if(i == 0) {
+            printf(" U: ");
+        } else {
+            printf("    ");
+        }
 
         for (int j = 0; j < SIZE; ++j) {
             printf("%.2f ", U[i][j]);
