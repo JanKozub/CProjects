@@ -62,7 +62,7 @@ void printData2() {
     printf("------------------------------------------------------------------------------------------\n");
 }
 
-void initL(){
+void initArrays(){
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
             if(i == j) {
@@ -72,21 +72,14 @@ void initL(){
             } else {
                 L[i][j] = 0;
             }
-        }
-    }
-}
 
-void initU() {
-    for (int i = 0; i < SIZE; ++i) {
-        for (int j = 0; j < SIZE; ++j) {
             U[i][j] = j < i ? 0 : -1;
         }
     }
 }
 
 int main() {
-    initL();
-    initU();
+    initArrays();
     printData2();
 
     double n;
