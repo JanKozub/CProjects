@@ -1,30 +1,15 @@
 #include <stdio.h>
 
-#define SIZE 4
+#define SIZE 3
 
-//double input[3][3] = {
-//        {5, 3, 2},
-//        {1, 2, 0},
-//        {3, 0, 4}
-//};
-
-double input[4][4] = {
-        {5, 3, 2, 2},
-        {1, 2, 0, 4},
-        {3, 0, 4, 8},
-        {1, 9, 3, 2}
+double input[SIZE][SIZE] = {
+        {6, -2, 0},
+        {9, -1, 1},
+        {3, 7, 5}
 };
 
-//double input[SIZE][SIZE] = {
-//        {8, 9, 3},
-//        {6, 5, 1},
-//        {7, 4, 2}
-//};
-
 double L[SIZE][SIZE];
-
 double U[SIZE][SIZE];
-
 
 void printData2() {
     for (int i = 0; i < SIZE; ++i) {
