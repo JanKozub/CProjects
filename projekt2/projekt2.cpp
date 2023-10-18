@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
+#include <clocale>
 
 int getAmountOfWords(char string[]) {
     int wordsAmount = 1;
@@ -37,7 +39,7 @@ int getIndexOfWord(char string[], char input[]) {
             counter++;
         }
     }
-    indexArr[counter] = (int)strlen(string);
+    indexArr[counter] = (int) strlen(string);
 
     char words[wordsAmount][getMaxLen(wordsAmount, indexArr) + 3];
 
@@ -59,9 +61,9 @@ int getIndexOfWord(char string[], char input[]) {
     while (1) {
         currentIndex = (int) (is + floor((ie - is) / 2));
 
-        if(currentIndex == lastIndex) {
+        if (currentIndex == lastIndex) {
             timeoutCounter++;
-            if(timeoutCounter == 3) {
+            if (timeoutCounter == 3) {
                 return -1;
             }
         }
@@ -88,16 +90,51 @@ int getIndexOfWord(char string[], char input[]) {
 }
 
 int main() {
-    char string[] = "ananas baba banan cytryna drewno ewa framuga gigant kiwi marchew truskawka rozkaz wiatr woda yeti";
+    system("chcp 1250");
+    setlocale(LC_ALL, "Polish");
+
+    char stringIn[] = "ananas bąba     banan cytryna drewno ewa framuga gigant kiwi marchew truskawka rozkaz wiatr woda yeti";
     char input[] = "ananas";
+
+    int counter = 0;
+    for (int i = 0; i < strlen(stringIn); ++i) {
+        if (stringIn[i] == ' ' && stringIn[i + 1] != ' ') {
+            counter++;
+        }
+    }
+
+    int len = strlen(stringIn);
+    char string[len];
+
+    counter = 0;
+    for (int i = 0; i < strlen(stringIn); ++i) {
+        if(i == 0) {
+            if(stringIn[0] != ' ') {
+                string[counter] = stringIn[i];
+                counter++;
+            }
+        } else{
+            if (stringIn[i] == ' ' && stringIn[i + 1] != ' ' && counter != 0) {
+                string[counter] = stringIn[i];
+                counter++;
+            } else if (stringIn[i] != ' ') {
+                string[counter] = stringIn[i];
+                counter++;
+            }
+        }
+    }
+    string[len] = '\0';
+    printf("%s", string);
+
 
     int index = getIndexOfWord(string, input);
 
-    if(index == -1) {
+    if (index == -1) {
         printf("Slowa nie znaleziono");
     } else {
         printf("indeks slowa to: %i", index);
     }
 
+    //CHCP1250
     return 0;
 }
