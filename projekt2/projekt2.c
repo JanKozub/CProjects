@@ -55,7 +55,7 @@ int getIndexOfWord(char string[], char input[]) {
 
     int is = 0, ie = wordsAmount - 1, currentIndex, currentChar, inputChar, lastIndex = 0, timeoutCounter = 0;
 
-    while (1 == 1) {
+    while (1) {
         currentIndex = (int) (is + floor((ie - is) / 2));
 
         if(currentIndex == lastIndex) {
