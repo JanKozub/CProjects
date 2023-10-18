@@ -133,6 +133,5 @@ int main() {
     }
 
     printData();
-
     return 0;
 }

@@ -66,7 +66,7 @@ int getIndexOfWord(char string[], char input[]) {
         }
         lastIndex = currentIndex;
 
-//        printf("%s == %s\n", words[currentIndex], input);
+        printf("sprawdzam: %s == %s\n", words[currentIndex], input);
         if (strcmp(words[currentIndex], input) == 0) {
             return currentIndex;
         }
@@ -97,7 +97,6 @@ int main() {
     } else {
         printf("indeks slowa to: %i", index);
     }
-
 
     return 0;
 }

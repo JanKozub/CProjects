@@ -1,30 +1,6 @@
 #include <stdio.h>
 #include <math.h>
 
-/*
- Policz wartości funkcji y = f(x) we wszystkich punktach podziału na n części
-
-przedziału [a,b]. Funkcja f dana jest w postaci rozwinięcia w szereg
-
-potęgowy i w postaci wzoru analitycznego. Obliczanie sumy szeregu
-
-wykonaj z dokładnością ε. Algorytm obliczania sumy szeregu zapisz w
-
-oddzielnej funkcji. Przykładowa funkcja: y=sin(x). Uzupełnij funkcję
-
-obliczającą sumę szeregu tak, by sumowanych było co najwyżej M
-
-wyrazów szeregu. Oznacza to, że przerwanie sumowania może nastąpić
-
-również wtedy, gdy nie zostanie osiągnięta ¡dana dokładność. Informacja
-
-o tym, czy została osiągnięta dokładność czy też nie winna być znana w
-
-funkcji main. Uzupełnij funkcję obliczającą sumę szeregu tak, by w funkcji
-
-main znana była dodatkowo liczba sumowanych wyrazów szeregu.
- */
-
 double countValue(double x, int n) {
     return (pow(x - 1, n) / (n * pow(x + 1, n)));
 }
@@ -55,23 +31,20 @@ int main() {
     }
 
     for (int i = 0; i < p; ++i) {
-        double x = xArr[i];
-
+        double x = xArr[i], lastValue, value = 0;
         int n = 1, counter = 0;
-        double lastValue;
-        double value = 0;
+
         printf("obliczanie %f:\n", x);
         do {
             lastValue = value;
             value = value + countValue(x, n);
-            n = n + 2;
             printf("%lf %lf\n", lastValue, value);
+            n = n + 2;
             counter++;
         } while ((2 * value - 2 * lastValue >= epsilon) && counter < M);
 
         printf("wynik:\n");
         printf("%lf\n", 2 * value);
-
         printf("------------------\n");
     }
 
