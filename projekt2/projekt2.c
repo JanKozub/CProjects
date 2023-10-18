@@ -68,7 +68,7 @@ int getIndexOfWord(char string[], char input[]) {
 
 //        printf("%s == %s\n", words[currentIndex], input);
         if (strcmp(words[currentIndex], input) == 0) {
-            return currentIndex + 1;
+            return currentIndex;
         }
 
         int i = -1;
@@ -88,7 +88,7 @@ int getIndexOfWord(char string[], char input[]) {
 
 int main() {
     char string[] = "ananas baba banan cytryna drewno ewa framuga gigant kiwi marchew truskawka rozkaz wiatr woda yeti";
-    char input[] = "dr";
+    char input[] = "drr";
 
     int index = getIndexOfWord(string, input);
 

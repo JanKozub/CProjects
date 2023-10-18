@@ -10,4 +10,5 @@ add_executable(CProjects
         projekt4/projekt4-LIFO-tablica.c
         projekt4/projekt4-LIFO-lista.c
         projekt4/projekt4-FIFO-lista.c
-        projekt4/projekt4-FIFO-tablica.c)
+        projekt4/projekt4-FIFO-tablica.c
+        projekt1/projekt1.c)

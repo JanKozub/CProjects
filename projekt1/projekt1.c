@@ -35,10 +35,16 @@ int main() {
     scanf("%le", &epsilon);
 
     printf("podaj ilosc podprzedzialow\n");
-    scanf("%le", &p);
+    scanf("%d", &p);
 
-    for (int i = 0; i < p; ++i) {
-
+    double xArr[p + 1];
+    double diff = (b - a) / p;
+    xArr[0] = a;
+    for (int i = 0; i <= p; ++i) {
+        if (i > 0)
+            xArr[i] = xArr[i - 1] + diff;
+        printf("%lf", xArr[i]);
     }
+
     return 0;
 }
