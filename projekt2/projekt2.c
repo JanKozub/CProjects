@@ -12,7 +12,7 @@ int getAmountOfWords(char string[]) {
     return wordsAmount;
 }
 
-int getMaxLen(int wordsAmount, int indexArr[]) {
+int getMaxLen(int wordsAmount, const int indexArr[]) {
     int maxLen = 0;
     for (int i = 0; i < wordsAmount; ++i) {
         int wordLen = indexArr[i + 1] - indexArr[i] - 1;
@@ -37,7 +37,7 @@ int getIndexOfWord(char string[], char input[]) {
             counter++;
         }
     }
-    indexArr[counter] = strlen(string);
+    indexArr[counter] = (int)strlen(string);
 
     char words[wordsAmount][getMaxLen(wordsAmount, indexArr) + 3];
 
@@ -53,7 +53,8 @@ int getIndexOfWord(char string[], char input[]) {
         strcpy(words[i], word);
     }
 
-    int is = 0, ie = wordsAmount - 1, currentIndex, currentChar, inputChar, lastIndex = 0, timeoutCounter = 0;
+    int currentIndex, currentChar, inputChar, lastIndex = 0, timeoutCounter = 0;
+    double is = 0, ie = wordsAmount - 1;
 
     while (1) {
         currentIndex = (int) (is + floor((ie - is) / 2));
@@ -88,7 +89,7 @@ int getIndexOfWord(char string[], char input[]) {
 
 int main() {
     char string[] = "ananas baba banan cytryna drewno ewa framuga gigant kiwi marchew truskawka rozkaz wiatr woda yeti";
-    char input[] = "drr";
+    char input[] = "ananas";
 
     int index = getIndexOfWord(string, input);
 
